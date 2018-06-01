@@ -12,6 +12,7 @@ class parse_args_tests (TestCase):
             def __init__(self):
                 self.DATADIR = sentinel.DATADIR
                 self.DEBUG = sentinel.DEBUG
+                self.NETWORK = sentinel.NETWORK
                 self.FAKE_ARG_A = sentinel.FAKE_ARG_A
                 self.FAKE_ARG_B = sentinel.FAKE_ARG_B
 
@@ -36,6 +37,7 @@ class parse_args_tests (TestCase):
                 {
                     'DATADIR': sentinel.DATADIR,
                     'DEBUG': sentinel.DEBUG,
+                    'NETWORK': sentinel.NETWORK
                 },
                 m_cmdclass.run,
                 {
@@ -80,5 +82,33 @@ class parse_args_tests (TestCase):
                     const='debug',
                     help='Include debug output on stderr.',
                 ),
-            ],
-        )
+                call.add_mutually_exclusive_group(),
+                call.add_mutually_exclusive_group().add_argument(
+                    '--regtest',
+                    action='store_const',
+                    const='regtest',
+                    dest='NETWORK',
+                    help='regtest mode.'
+                ),
+                call.add_mutually_exclusive_group().add_argument(
+                    '--testnet',
+                    action='store_const',
+                    const='testnet',
+                    dest='NETWORK',
+                    help='testnet mode.'
+                ),
+                call.add_mutually_exclusive_group().add_argument(
+                    '--mainnet',
+                    action='store_const',
+                    const='mainnet',
+                    dest='NETWORK',
+                    help='mainnet mode.'
+                ),
+                call.add_mutually_exclusive_group().set_defaults(
+                    NETWORK='mainnet'
+                ),
+
+            ]
+
+
+            )

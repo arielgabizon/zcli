@@ -10,7 +10,7 @@ def main(args=sys.argv[1:]):
     (opts, cmdfunc, cmdkwargs) = clargs.parse_args(main.__doc__, args)
 
     zops = operations.ZcashOperations(
-        zcashcli.ZcashCLI(opts['DATADIR']),
+        zcashcli.ZcashCLI(opts['DATADIR'], opts['NETWORK']),
     )
     uicb = ui.make_ui(opts['VERBOSITY'])
     try:

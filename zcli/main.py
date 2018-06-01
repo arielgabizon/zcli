@@ -13,7 +13,7 @@ def main(args=sys.argv[1:]):
     init_logging(opts['DEBUG'])
 
     zops = operations.ZcashOperations(
-        zcashcli.ZcashCLI(opts['DATADIR']),
+        zcashcli.ZcashCLI(opts['DATADIR'], opts['NETWORK']),
     )
     try:
         result = cmdfunc(zops, **cmdkwargs)

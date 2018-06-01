@@ -29,7 +29,7 @@ class list_balances (BaseCommand):
             if utxo['spendable'] is True:
                 balances[utxo['address']] += utxo['amount']
 
-        # Gather t-addr balances:
+        # Gather z-addr balances:
         for zaddr in ops.cli.z_listaddresses():
             balances[zaddr] = Decimal(
                 ops.cli.z_getbalance(zaddr),
@@ -38,7 +38,7 @@ class list_balances (BaseCommand):
         return {
             'total': sum(balances.values()),
             'addresses': dict(
-                (k, v)
+                (k, (v, k))
                 for (k, v)
                 in balances.iteritems()
                 if v > 0

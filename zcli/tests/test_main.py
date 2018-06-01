@@ -14,8 +14,9 @@ class main_tests (TestCase):
         m_run.return_value = ["json", "result"]
 
         fakedatadir = Path('fake-path')
+        fakenetwork = 'mainnet'
         m_parse_args.return_value = (
-            {'DEBUG': True, 'DATADIR': fakedatadir},
+            {'DEBUG': True, 'DATADIR': fakedatadir, 'NETWORK': fakenetwork},
             m_run,
             {'fake_arg': sentinel.FAKE_ARG},
         )
@@ -28,7 +29,7 @@ class main_tests (TestCase):
 
         self.assertEqual(
             m_ZcashCLI.mock_calls,
-            [call(fakedatadir)])
+            [call(fakedatadir, 'mainnet')])
 
         self.assertEqual(
             m_ZcashOperations.mock_calls,
